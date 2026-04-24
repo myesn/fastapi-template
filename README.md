@@ -12,7 +12,9 @@
 - **CRUD 示例**，User 增删改查接口
 - **CORS**，跨域支持
 - **uv**，项目管理和依赖
-- **部署**，Gunicorn + Uvicorn Worker
+- **部署**：
+  - 直接在服务器上部署，Gunicorn + Uvicorn Worker
+  - 使用 Docker Compose 部署
 
 ## 快速开始
 
