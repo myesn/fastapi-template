@@ -1,0 +1,14 @@
+.venv/
+.git/
+.idea/
+.vscode/
+*.md
+docs/
+.env.*
+!.env.production
+static/
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+.ruff_cache/

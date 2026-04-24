@@ -4,15 +4,18 @@ from typing import Literal
 from pydantic import computed_field, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
-env_file = None
-if ENVIRONMENT in {"local", "staging", "production"}:
-    env_file = os.path.normpath(os.path.join(os.path.dirname(__file__), f"../../.env.{ENVIRONMENT}"))
-else:
-    raise ValueError("环境变量 ENVIRONMENT 的值只能是 local, staging, 或 production")
+from app.utils.docker_utils import is_not_docker
 
-exists_env_file = "存在" if os.path.exists(env_file) else "缺失"
-print(f"当前使用的配置文件（{exists_env_file}）={env_file}")
+env_file = None
+if is_not_docker():
+    ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
+    if ENVIRONMENT in {"local", "staging", "production"}:
+        env_file = os.path.normpath(os.path.join(os.path.dirname(__file__), f"../../.env.{ENVIRONMENT}"))
+    else:
+        raise ValueError("环境变量 ENVIRONMENT 的值只能是 local, staging, 或 production")
+
+    exists_env_file = "存在" if os.path.exists(env_file) else "缺失"
+    print(f"当前使用的配置文件（{exists_env_file}）={env_file}")
 
 
 class Settings(BaseSettings):
