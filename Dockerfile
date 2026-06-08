@@ -1,4 +1,4 @@
-FROM docker.1ms.run/astral/uv:python3.14-alpine
+FROM astral/uv:python3.14-alpine
 
 WORKDIR /project
 
